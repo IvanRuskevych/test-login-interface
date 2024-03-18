@@ -6,17 +6,16 @@ import { ButtonWrapper } from '../components/LinkAuth/LinkAuth.styled.js';
 // import iconGoogle from '../assets/icons/google.svg';
 // import iconGithub from '../assets/icons/github.svg';
 
-import vite from "../../public/vite.svg"
-import react from "../assets/react.svg"
-
 const LoginPage = () => {
   return (
     <>
       <TitleAuth text={'Log in to your account'} />
       <ButtonWrapper>
+          <p>iconGoogle</p>
+          <p>iconGithub</p>
         {/*<LinkAuth icon={iconGoogle} text={"Google"} href={`https://github.com/`}/>*/}
-        <LinkAuth icon={vite} text={'Google'} href={`/password-reset`} />
-        <LinkAuth icon={react} text={'GitHub'} href={`/password-set`} />
+        {/*<LinkAuth icon={iconGoogle} text={'Google'} href={`/password-reset`} />*/}
+        {/*<LinkAuth icon={iconGithub} text={'GitHub'} href={`/password-set`} />*/}
       </ButtonWrapper>
       <Separator />
       <FormLogin />

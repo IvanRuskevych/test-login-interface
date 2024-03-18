@@ -3,8 +3,8 @@ import {
   StyledField,
   StyledFieldPasswordWrapper,
   StyledButton,
-  StyledIconOn,
-  StyledIconOff,
+  // StyledIconOn,
+  // StyledIconOff,
 } from './fields.styled.js';
 import { useState } from 'react';
 
@@ -15,8 +15,8 @@ const FieldPassword = ({ className }) => {
     <StyledFieldPasswordWrapper className={className}>
       <StyledField placeholder={'Password'} />
       <StyledButton>
-        {toggle && <StyledIconOn sx={{ fontSize: 20 }} />}
-        {!toggle && <StyledIconOff sx={{ fontSize: 20 }} />}
+        {/*{toggle && <StyledIconOn sx={{ fontSize: 20 }} />}*/}
+        {/*{!toggle && <StyledIconOff sx={{ fontSize: 20 }} />}*/}
       </StyledButton>
     </StyledFieldPasswordWrapper>
   );
