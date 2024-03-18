@@ -10,12 +10,12 @@ const FormLogin = () => {
             <Form>
                 <Field placeholder={'Work email'}/>
                 <FieldPassword/>
-                <LinkText to={'/password-reset'} text={'Forgot your password?'} className={'forgot-psw'}/>
+                <LinkText href={'v1/auth/password-reset'} text={'Forgot your password?'} className={'forgot-psw'}/>
                 <FormButton type={'submit'} text={'Log in to Qencode'}/>
             </Form>
             <StyledText>
                 Is your company new to Qencode?
-                <LinkText to={'/'} text={'Sign up'}/>
+                <LinkText href={'/'} text={'Sign up'}/>
             </StyledText>
         </>
     );
