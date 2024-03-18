@@ -9,7 +9,6 @@
       <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/LayoutAuth/LayoutAuth.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LayoutAuth/LayoutAuth.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/fields/FieldPassword.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/fields/FieldPassword.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/LoginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/LoginPage.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -99,7 +98,7 @@
       <workItem from="1710766572581" duration="63000" />
       <workItem from="1710766651116" duration="1094000" />
       <workItem from="1710770435226" duration="6628000" />
-      <workItem from="1710777098393" duration="7456000" />
+      <workItem from="1710777098393" duration="6280000" />
     </task>
     <servers />
   </component>
