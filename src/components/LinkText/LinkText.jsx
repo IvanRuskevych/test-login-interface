@@ -1,19 +1,18 @@
 import PropTypes from 'prop-types';
 import { LinkWrapper, StyledText } from './LinkText.styled.js';
-import { NavLink } from 'react-router-dom';
 
-const LinkText = ({ to, text, className }) => {
+const LinkText = ({ href, text, className }) => {
   return (
     <LinkWrapper className={className}>
-      <NavLink to={to}>
+      <a href={`${import.meta.env.BASE_URL}${href}`}>
         <StyledText>{text}</StyledText>
-      </NavLink>
+      </a>
     </LinkWrapper>
   );
 };
 
 LinkText.propTypes = {
-  to: PropTypes.string.isRequired,
+    href: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   className: PropTypes.string,
 };
