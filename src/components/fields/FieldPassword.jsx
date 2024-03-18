@@ -1,15 +1,18 @@
 import PropTypes from 'prop-types';
 import {
+
     StyledField,
     StyledFieldPasswordWrapper,
     StyledButton,
     StyledIconOn,
     StyledIconOff,
+
 } from './fields.styled.js';
 import {useState} from 'react';
 
 const FieldPassword = ({className}) => {
     const [toggle, setToggle] = useState(false);
+
 
     return (<StyledFieldPasswordWrapper className={className}>
         <StyledField placeholder={'Password'}/>
@@ -18,6 +21,7 @@ const FieldPassword = ({className}) => {
             {!toggle && <StyledIconOff sx={{fontSize: 20}}/>}
         </StyledButton>
     </StyledFieldPasswordWrapper>);
+
 };
 
 FieldPassword.propTypes = {

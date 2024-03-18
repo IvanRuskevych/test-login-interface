@@ -1,3 +1,4 @@
+
 import {Outlet} from 'react-router-dom';
 import {
     AuthContainer,
@@ -17,6 +18,7 @@ const LayoutAuth = () => {
             </Section>
         </AuthContainer>
     );
+
 };
 
 export default LayoutAuth;
