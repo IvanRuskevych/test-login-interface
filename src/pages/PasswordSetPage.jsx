@@ -1,5 +1,5 @@
 import TitleAuth from '../components/TitleAuth/TitleAuth.jsx';
-import FormPasswordSet from '../components/FormLogin/FormPasswordSet.jsx';
+import FormPasswordSet from '../components/forms/FormPasswordSet.jsx';
 
 const PasswordSetPage = () => {
   return (

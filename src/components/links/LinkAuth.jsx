@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { StyledLink, Icon } from './LinkAuth.styled.js';
+import { StyledLink, Icon } from './links.styled.js';
 
 const LinkAuth = ({ href, text, icon }) => {
   return (

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {StyledLink} from "./LinkAuth.styled.js";
+import {StyledLink} from "./links.styled.js";
 
 const LinkCancel = ({href, text, className}) => {
     return (
