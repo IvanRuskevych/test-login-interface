@@ -1,25 +1,29 @@
-import {Form, StyledText} from './forms.styled.js';
+import {useState} from "react";
+import {toast, ToastContainer} from 'react-toastify';
+
+import {useApiPostRequest} from "../../hooks/apiRequests.js";
+import {setAccessToken, setRefreshToken} from "../../utils/tokens.js";
+
 import LinkText from '../LinkText/LinkText.jsx';
 import FormButton from '../FormButton/FormButton.jsx';
 import FieldEmail from '../fields/FieldEmail.jsx';
 import FieldPassword from '../fields/FieldPassword.jsx';
+import {Form, StyledText} from './forms.styled.js';
 
-import {toast, ToastContainer} from 'react-toastify';
-import {useState} from "react";
 
 const FormLogin = () => {
     const [formData, setFormData] = useState({
         email: "",
         password: "",
     })
-
+    const {data, sendData} = useApiPostRequest()
     const [isShow, setIsShow] = useState(false)
     const handleChange = (e) => {
         const {name, value} = e.target;
         setFormData({...formData, [name]: value})
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i
         if (!isShow) {
@@ -34,14 +38,16 @@ const FormLogin = () => {
             if (formData.password.length < 8) {
                 return toast.error("Password must be less than 8 characters");
             } else {
-                toast.success("Success")
                 console.log("send data")
-
+                await sendData("/v1/auth/login", formData)
+                setAccessToken(data.access_token)
+                setRefreshToken(data.refresh_token)
                 setIsShow(false)
                 setFormData({
                     email: "",
                     password: "",
                 })
+                toast.success("Success")
             }
         }
 
