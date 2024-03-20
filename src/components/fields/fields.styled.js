@@ -37,6 +37,7 @@ export const StyledFieldPasswordWrapper = styled.div`
   margin-bottom: 15px;
 
   &.password-set {
+    margin-top: 8px;
     margin-bottom: 20px;
   }
 `;
