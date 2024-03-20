@@ -1,21 +1,16 @@
 import {useState} from "react";
 import {toast, ToastContainer} from 'react-toastify';
-
 import {useApiPostRequest} from "../../hooks/apiRequests.js";
 import {setAccessToken, setRefreshToken} from "../../utils/tokens.js";
-
 import LinkText from '../LinkText/LinkText.jsx';
 import FormButton from '../FormButton/FormButton.jsx';
 import FieldEmail from '../fields/FieldEmail.jsx';
 import FieldPassword from '../fields/FieldPassword.jsx';
 import {Form, StyledText} from './forms.styled.js';
-
+import {API_PATH, INIT_STAT, MESSAGES, REGEX} from "../../constants/constants.js";
 
 const FormLogin = () => {
-    const [formData, setFormData] = useState({
-        email: "",
-        password: "",
-    })
+    const [formData, setFormData] = useState(INIT_STAT.LOGIN)
     const {data, sendData} = useApiPostRequest()
     const [isShow, setIsShow] = useState(false)
     const handleChange = (e) => {
@@ -25,31 +20,27 @@ const FormLogin = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i
         if (!isShow) {
             if (formData.email.length === 0) {
-                toast.error("Enter email");
-            } else if (!regexEmail.test(formData.email)) {
-                return toast.error("This is not a valid email");
-            } else if (regexEmail.test(formData.email)) {
+                toast.error(MESSAGES.ERR_EMAIL);
+            } else if (!REGEX.EMAIL.test(formData.email)) {
+                return toast.error(MESSAGES.ERR_EMAIL_INVALID);
+            } else if (REGEX.EMAIL.test(formData.email)) {
                 return setIsShow(true)
             }
         } else if (isShow) {
             if (formData.password.length < 8) {
-                return toast.error("Password must be less than 8 characters");
+                return toast.error(MESSAGES.ERR_PSW);
             } else {
                 try {
-                    await sendData("/v1/auth/login", formData);
+                    await sendData(API_PATH.LOGIN, formData);
                     setAccessToken(data.access_token);
                     setRefreshToken(data.refresh_token);
                     setIsShow(false);
-                    setFormData({
-                        email: "",
-                        password: "",
-                    });
-                    toast.success("Success");
+                    setFormData(INIT_STAT.LOGIN);
+                    toast.success(MESSAGES.SUCCESS_MSG);
                 } catch (error) {
-                    toast.error("Failed to log in. Please try again later.");
+                    toast.error(MESSAGES.ERR_LOGIN);
                 }
             }
         }
@@ -65,8 +56,6 @@ const FormLogin = () => {
                     placeholder={"Work email"}
                     className={isShow ? "field-email" : "field-psw-hide"}
                 />
-
-
                 {isShow &&
                     <>
                         <FieldPassword
@@ -75,21 +64,17 @@ const FormLogin = () => {
                             onChange={handleChange}
                         />
                         <LinkText
-                            href={'v1/auth/password-reset'}
+                            href={"password-reset"}
                             text={'Forgot your password?'}
                             className={'forgot-psw'}
                         />
-
-
                     </>
                 }
-
-
                 <FormButton type={'submit'} text={'Log in to Qencode'}/>
             </Form>
             <StyledText>
                 Is your company new to Qencode?&nbsp;
-                <LinkText href={'v1/auth/'} text={' Sign up'}/>
+                <LinkText href={""} text={'Sign up'}/>
             </StyledText>
         </>
     )

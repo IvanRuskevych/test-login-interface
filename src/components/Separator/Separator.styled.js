@@ -17,13 +17,9 @@ export const StyledSeparator = styled.div`
 
 export const StyledText = styled.span`
   padding: 0 5px;
-  //styleName: B4/Medium;
-  //font-family: Basis Grotesque Pro;
   font-size: 12px;
-  //font-weight: 500;
   line-height: 16px;
-  letter-spacing: 0px;
+  letter-spacing: 0;
   text-align: left;
-
   color: var(--color-separator);
 `;

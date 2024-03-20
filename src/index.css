@@ -1,42 +1,38 @@
 :root {
-  font-family: BasisGrotesquePro-Medium, sans-serif;
-  /*font-weight: 500;*/
-  /*line-height: 1.5;*/
+    font-family: BasisGrotesquePro-Medium, sans-serif;
+    font-weight: 500;
+    /*line-height: 1.5;*/
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
-  /* colors   */
-  --color-border-prime: #d3d8dc;
+    /* colors   */
+    --color-border-prime: #d3d8dc;
 
-  --color-text-prime: #060e1e;
-  --color-text-secondary: #ffffff;
-  --color-link-text: #316fea;
+    --color-text-prime: #060e1e;
+    --color-text-secondary: #ffffff;
+    --color-link-text: #316fea;
 
-  --color-input-placholder: #a1abb5;
-  --color-input-text: #060e1e;
+    --color-input-placholder: #a1abb5;
+    --color-input-text: #060e1e;
 
-  --color-bg-btn: #316fea;
+    --color-bg-btn: #316fea;
 
-  --color-icon-password: #67717b;
-  --color-separator: #e3e6e9;
+    --color-icon-password: #67717b;
+    --color-separator: #e3e6e9;
 }
 
 body {
-  margin: 0;
-  /*display: flex;*/
-  /*place-items: center;*/
-  /*min-width: 320px;*/
-  /*min-height: 100vh;*/
+    margin: 0;
 }
 
 button {
-  cursor: pointer;
-  margin: 0;
-  padding: 0;
-  border: 0;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 h1,
@@ -45,44 +41,44 @@ h3,
 h4,
 h5,
 h6 {
-  margin: 0;
+    margin: 0;
 }
 
 p {
-  margin: 0;
+    margin: 0;
 }
 
 ul,
 li {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  text-decoration: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
 }
 
 a {
-  text-decoration: none;
-  color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
 img {
-  display: block;
-  max-width: 100%;
-  height: auto;
+    display: block;
+    max-width: 100%;
+    height: auto;
 }
 
 /* Basis Grotesque Pro fonts */
 @font-face {
-  font-family: 'BasisGrotesquePro-Medium';
-  src: local('BasisGrotesquePro-Medium'), url('./assets/fonts/BasisGrotesquePro-Medium.ttf');
+    font-family: 'BasisGrotesquePro-Medium';
+    src: local('BasisGrotesquePro-Medium'), url('./assets/fonts/BasisGrotesquePro-Medium.ttf');
 }
 
 @font-face {
-  font-family: 'BasisGrotesquePro-Regular';
-  src: local('BasisGrotesquePro-Regular'), url('./assets/fonts/BasisGrotesquePro-Regular.ttf');
+    font-family: 'BasisGrotesquePro-Regular';
+    src: local('BasisGrotesquePro-Regular'), url('./assets/fonts/BasisGrotesquePro-Regular.ttf');
 }
 
 @font-face {
-  font-family: 'BasisGrotesquePro-Bold';
-  src: local('BasisGrotesquePro-Bold'), url('./assets/fonts/BasisGrotesquePro-Bold.ttf');
+    font-family: 'BasisGrotesquePro-Bold';
+    src: local('BasisGrotesquePro-Bold'), url('./assets/fonts/BasisGrotesquePro-Bold.ttf');
 }

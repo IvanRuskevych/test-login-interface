@@ -9,13 +9,9 @@ export const StyledLink = styled.a`
   border: 1.2px solid var(--color-border-prime);
   border-radius: 6px;
   background-color: transparent;
-
-  //styleName: B2/Medium;
   font-size: 14px;
-  //font-weight: 500;
   line-height: 20px;
   letter-spacing: 0px;
-  //text-align: left;
   color: var(--color-text-prime);
 
   &.link-cancel {

@@ -1,16 +1,15 @@
-import {Form} from './forms.styled.js';
-import FieldEmail from '../fields/FieldEmail.jsx';
-import FormButton from '../FormButton/FormButton.jsx';
-import LinkCancel from '../links/LinkCancel.jsx';
 import {useState} from "react";
 import {toast, ToastContainer} from 'react-toastify';
 import {useApiPostRequest} from "../../hooks/apiRequests.js";
+import FieldEmail from '../fields/FieldEmail.jsx';
+import FormButton from '../FormButton/FormButton.jsx';
+import LinkCancel from '../links/LinkCancel.jsx';
+import {API_PATH, INIT_STAT, MESSAGES, REGEX} from "../../constants/constants.js";
+import {Form} from './forms.styled.js';
 
 const FormPasswordReset = () => {
-    const [formData, setFormData] = useState({
-        email: ""
-    })
-    const {data, sendData} = useApiPostRequest()
+    const [formData, setFormData] = useState(INIT_STAT.PSW_RESET)
+    const {sendData} = useApiPostRequest()
 
     const handleChange = (e) => {
         const {name, value} = e.target
@@ -19,18 +18,17 @@ const FormPasswordReset = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i
         if (formData.email.length === 0) {
-            toast.error("Enter email");
-        } else if (!regexEmail.test(formData.email)) {
-            toast.error("This is not a valid email");
-        } else if (regexEmail.test(formData.email)) {
+            toast.error(MESSAGES.ERR_EMAIL);
+        } else if (!REGEX.EMAIL.test(formData.email)) {
+            toast.error(MESSAGES.ERR_EMAIL_INVALID);
+        } else {
             try {
-                await sendData("/v1/auth/password-reset", formData);
-                setFormData({email: "",});
-                toast.success(`Please check your email ${formData.email} to complete the password reset process`);
+                await sendData(API_PATH.PSW_RESET, formData);
+                setFormData(INIT_STAT.PSW_RESET);
+                toast.success(MESSAGES.SUCCESS_EMAIL_SEND(formData.email));
             } catch (error) {
-                toast.error("Failed to reset password. Please try again later.");
+                toast.error(MESSAGES.ERR_PSW_RESET);
             }
         }
     }
@@ -43,7 +41,7 @@ const FormPasswordReset = () => {
                             className={"field-email"}/>
                 <FormButton type={'submit'} text={'Send'}/>
             </Form>
-            <LinkCancel href={'v1/auth/login'} text={'Cancel'} className={'link-cancel'}/>
+            <LinkCancel href={'login'} text={'Cancel'} className={'link-cancel'}/>
         </>
     );
 };

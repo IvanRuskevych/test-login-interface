@@ -7,7 +7,7 @@ import PasswordSetPage from './pages/PasswordSetPage.jsx';
 function App() {
   return (
     <Routes>
-      <Route path={'/v1/auth/'} element={<LayoutAuth />}>
+      <Route path={'/'} element={<LayoutAuth />}>
         <Route path={'login'} element={<LoginPage />} />
         <Route path={'password-reset'} element={<PasswordResetPage />} />
         <Route path={'password-set'} element={<PasswordSetPage />} />

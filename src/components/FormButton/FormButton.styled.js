@@ -6,14 +6,10 @@ export const StyledButton = styled.button`
     border: 1px solid transparent;
     border-radius: 8px;
     background-color: var(--color-bg-btn);
-
-    //font-family: Basis Grotesque Pro;
-    //font-weight: 500;
     font-size: 16px;
     line-height: 21px;
     letter-spacing: 0;
     text-align: center;
-
     color: var(--color-text-secondary);
 
     &.btn-login {
