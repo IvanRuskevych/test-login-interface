@@ -4,7 +4,6 @@ import FormButton from '../FormButton/FormButton.jsx';
 import LinkCancel from '../links/LinkCancel.jsx';
 import {useState} from "react";
 import {toast, ToastContainer} from 'react-toastify';
-import {setAccessToken, setRefreshToken} from "../../utils/tokens.js";
 import {useApiPostRequest} from "../../hooks/apiRequests.js";
 
 const FormPasswordReset = () => {
@@ -28,8 +27,6 @@ const FormPasswordReset = () => {
         } else if (regexEmail.test(formData.email)) {
             try {
                 await sendData("/v1/auth/password-reset", formData);
-                setAccessToken(data.access_token);
-                setRefreshToken(data.refresh_token);
                 setFormData({email: "",});
                 toast.success(`Please check your email ${formData.email} to complete the password reset process`);
             } catch (error) {

@@ -1,0 +1,50 @@
+Index: src/components/forms/FormPasswordSet.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import {Form} from './forms.styled.js';\r\nimport FieldPassword from '../fields/FieldPassword.jsx';\r\nimport FormButton from '../FormButton/FormButton.jsx';\r\nimport LabelText from '../LabelText/LabelText.jsx';\r\nimport {useState} from \"react\";\r\nimport {toast, ToastContainer} from 'react-toastify';\r\n\r\n\r\nconst FormPasswordSet = () => {\r\n    const [formData, setFormData] = useState({\r\n        password: \"\",\r\n        confirmPassword: \"\"\r\n    })\r\n\r\n    const handleChange = (e) => {\r\n        const {name, value} = e.target\r\n        setFormData({...formData, [name]: value})\r\n    }\r\n\r\n    const handleSubmit = (e) => {\r\n        e.preventDefault()\r\n        if (formData.password.length < 8) {\r\n            toast.error(\"Password must be less than 8 characters\");\r\n        } else if (formData.password !== formData.confirmPassword) {\r\n            toast.error(\"Passwords do not match\");\r\n        }\r\n    }\r\n\r\n    return (\r\n        <>\r\n            <ToastContainer/>\r\n            <Form onSubmit={handleSubmit}>\r\n                <LabelText text={'Password'}/>\r\n                <FieldPassword name={\"password\"} value={formData.password} onChange={handleChange}/>\r\n                <LabelText text={'Confirm Password'}/>\r\n                <FieldPassword name={\"confirmPassword\"} value={formData.confirmPassword} onChange={handleChange}\r\n                               className={'password-set'}/>\r\n                <FormButton text={'Reset Password'} type={'submit'}/>\r\n            </Form>\r\n        </>\r\n    );\r\n};\r\n\r\nFormPasswordSet.propTypes = {};\r\n\r\nexport default FormPasswordSet;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/forms/FormPasswordSet.jsx b/src/components/forms/FormPasswordSet.jsx
+--- a/src/components/forms/FormPasswordSet.jsx	(revision 259baac897348bdbe9b96c3e7c2228763c63959c)
++++ b/src/components/forms/FormPasswordSet.jsx	(date 1710934743471)
+@@ -4,6 +4,7 @@
+ import LabelText from '../LabelText/LabelText.jsx';
+ import {useState} from "react";
+ import {toast, ToastContainer} from 'react-toastify';
++import {useApiPostRequest} from "../../hooks/apiRequests.js";
+ 
+ 
+ const FormPasswordSet = () => {
+@@ -11,18 +12,30 @@
+         password: "",
+         confirmPassword: ""
+     })
++    const {data, sendData} = useApiPostRequest()
+ 
+     const handleChange = (e) => {
+         const {name, value} = e.target
+         setFormData({...formData, [name]: value})
+     }
+ 
+-    const handleSubmit = (e) => {
++    const handleSubmit = async (e) => {
+         e.preventDefault()
+         if (formData.password.length < 8) {
+             toast.error("Password must be less than 8 characters");
+         } else if (formData.password !== formData.confirmPassword) {
+             toast.error("Passwords do not match");
++        } else {
++            try {
++                await sendData("/v1/auth/password-set", formData);
++                setFormData({
++                    password: "",
++                    confirmPassword: ""
++                });
++                toast.success("Password reset successfully");
++            } catch (error) {
++                toast.error("Failed to password reset. Please try again later.");
++            }
+         }
+     }
+ 
