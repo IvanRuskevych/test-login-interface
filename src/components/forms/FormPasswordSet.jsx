@@ -37,7 +37,8 @@ const FormPasswordSet = () => {
             <ToastContainer/>
             <Form onSubmit={handleSubmit}>
                 <LabelText text={'Password'}/>
-                <FieldPassword name={"password"} value={formData.password} onChange={handleChange}/>
+                <FieldPassword name={"password"} value={formData.password} onChange={handleChange}
+                               className={'password-set'}/>
                 <LabelText text={'Confirm Password'}/>
                 <FieldPassword name={"confirmPassword"} value={formData.confirmPassword} onChange={handleChange}
                                className={'password-set'}/>
