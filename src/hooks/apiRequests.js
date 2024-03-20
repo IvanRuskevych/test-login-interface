@@ -1,5 +1,5 @@
-import instance from '../api/instance.js';
 import {useEffect, useState} from "react";
+import instance from "../api/instance.js";
 
 export const useApiPostRequest = () => {
     const [data, setData] = useState(null);
@@ -23,5 +23,8 @@ export const useApiPostRequest = () => {
         }
     }, [data]);
 
+
+
     return {data, isLoading, error, sendData};
 };
+

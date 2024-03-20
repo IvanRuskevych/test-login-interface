@@ -29,7 +29,7 @@ const FormPasswordReset = () => {
         <>
             <ToastContainer/>
             <Form onSubmit={handleSubmit}>
-                <FieldEmail value={formData.email} onChange={handleChange} placeholder={'Enter your email'}/>
+                <FieldEmail value={formData.email} onChange={handleChange} placeholder={'Enter your email'} className={"field-email"}/>
                 <FormButton type={'submit'} text={'Send'}/>
             </Form>
             <LinkCancel href={'v1/auth/login'} text={'Cancel'} className={'link-cancel'}/>

@@ -38,19 +38,21 @@ const FormLogin = () => {
             if (formData.password.length < 8) {
                 return toast.error("Password must be less than 8 characters");
             } else {
-                console.log("send data")
-                await sendData("/v1/auth/login", formData)
-                setAccessToken(data.access_token)
-                setRefreshToken(data.refresh_token)
-                setIsShow(false)
-                setFormData({
-                    email: "",
-                    password: "",
-                })
-                toast.success("Success")
+                try {
+                    await sendData("/v1/auth/login", formData);
+                    setAccessToken(data.access_token);
+                    setRefreshToken(data.refresh_token);
+                    setIsShow(false);
+                    setFormData({
+                        email: "",
+                        password: "",
+                    });
+                    toast.success("Success");
+                } catch (error) {
+                    toast.error("Failed to log in. Please try again later.");
+                }
             }
         }
-
     }
 
     return (
@@ -61,8 +63,9 @@ const FormLogin = () => {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder={"Work email"}
-                    className={isShow ? "field-psw-show" : "field-psw-hide"}
+                    className={isShow ? "field-email" : "field-psw-hide"}
                 />
+
 
                 {isShow &&
                     <>
@@ -74,9 +77,14 @@ const FormLogin = () => {
                         <LinkText
                             href={'v1/auth/password-reset'}
                             text={'Forgot your password?'}
-                            className={'forgot-psw'}/>
+                            className={'forgot-psw'}
+                        />
+
+
                     </>
                 }
+
+
                 <FormButton type={'submit'} text={'Log in to Qencode'}/>
             </Form>
             <StyledText>
@@ -84,7 +92,8 @@ const FormLogin = () => {
                 <LinkText href={'v1/auth/'} text={' Sign up'}/>
             </StyledText>
         </>
-    );
+    )
+        ;
 };
 
 export default FormLogin;

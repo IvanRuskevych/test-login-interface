@@ -17,7 +17,7 @@ export const StyledField = styled.input.attrs({
 
   color: var(--color-input-text);
 
-  &.field-psw-show {
+  &.field-email {
     margin-bottom: 25px;
   }
   &.field-psw-hide {
