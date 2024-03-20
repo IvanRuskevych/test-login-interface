@@ -1,0 +1,201 @@
+Index: src/components/forms/FormPasswordReset.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import {Form} from './forms.styled.js';\r\nimport FieldEmail from '../fields/FieldEmail.jsx';\r\nimport FormButton from '../FormButton/FormButton.jsx';\r\nimport LinkCancel from '../links/LinkCancel.jsx';\r\nimport {useState} from \"react\";\r\nimport {toast, ToastContainer} from 'react-toastify';\r\n\r\nconst FormPasswordReset = () => {\r\n    const [formData, setFromData] = useState({\r\n        email: \"\"\r\n    })\r\n\r\n    const handleChange = (e) => {\r\n        const {name, value} = e.target\r\n        setFromData({...formData, [name]: value})\r\n    }\r\n\r\n    const handleSubmit = (e) => {\r\n        e.preventDefault()\r\n        const regexEmail = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/i\r\n        if (formData.email.length === 0) {\r\n            toast.error(\"Enter email\");\r\n        } else if (!regexEmail.test(formData.email)) {\r\n            toast.error(\"This is not a valid email\");\r\n        }\r\n    }\r\n\r\n    return (\r\n        <>\r\n            <ToastContainer/>\r\n            <Form onSubmit={handleSubmit}>\r\n                <FieldEmail value={formData.email} onChange={handleChange} placeholder={'Enter your email'}/>\r\n                <FormButton type={'submit'} text={'Send'}/>\r\n            </Form>\r\n            <LinkCancel href={'v1/auth/login'} text={'Cancel'} className={'link-cancel'}/>\r\n        </>\r\n    );\r\n};\r\n\r\nexport default FormPasswordReset;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/forms/FormPasswordReset.jsx b/src/components/forms/FormPasswordReset.jsx
+--- a/src/components/forms/FormPasswordReset.jsx	(revision bc4d1c9eb7baa466d156dd3f39b28247f18ab8a7)
++++ b/src/components/forms/FormPasswordReset.jsx	(date 1710888715439)
+@@ -1,10 +1,11 @@
+-import {Form} from './forms.styled.js';
+-import FieldEmail from '../fields/FieldEmail.jsx';
+-import FormButton from '../FormButton/FormButton.jsx';
+-import LinkCancel from '../links/LinkCancel.jsx';
+ import {useState} from "react";
+ import {toast, ToastContainer} from 'react-toastify';
+ 
++import LinkCancel from '../links/LinkCancel.jsx';
++import FieldEmail from '../fields/FieldEmail.jsx';
++import FormButton from '../FormButton/FormButton.jsx';
++import {Form} from './forms.styled.js';
++
+ const FormPasswordReset = () => {
+     const [formData, setFromData] = useState({
+         email: ""
+@@ -29,7 +30,12 @@
+         <>
+             <ToastContainer/>
+             <Form onSubmit={handleSubmit}>
+-                <FieldEmail value={formData.email} onChange={handleChange} placeholder={'Enter your email'}/>
++                <FieldEmail
++                    value={formData.email}
++                    onChange={handleChange}
++                    placeholder={'Enter your email'}
++                    className={"field-email"}
++                />
+                 <FormButton type={'submit'} text={'Send'}/>
+             </Form>
+             <LinkCancel href={'v1/auth/login'} text={'Cancel'} className={'link-cancel'}/>
+Index: src/components/forms/FormLogin.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import {useState} from \"react\";\r\nimport {toast, ToastContainer} from 'react-toastify';\r\n\r\nimport {useApiPostRequest} from \"../../hooks/apiRequests.js\";\r\nimport {setAccessToken, setRefreshToken} from \"../../utils/tokens.js\";\r\n\r\nimport LinkText from '../LinkText/LinkText.jsx';\r\nimport FormButton from '../FormButton/FormButton.jsx';\r\nimport FieldEmail from '../fields/FieldEmail.jsx';\r\nimport FieldPassword from '../fields/FieldPassword.jsx';\r\nimport {Form, StyledText} from './forms.styled.js';\r\n\r\n\r\nconst FormLogin = () => {\r\n    const [formData, setFormData] = useState({\r\n        email: \"\",\r\n        password: \"\",\r\n    })\r\n    const {data, sendData} = useApiPostRequest()\r\n    const [isShow, setIsShow] = useState(false)\r\n    const handleChange = (e) => {\r\n        const {name, value} = e.target;\r\n        setFormData({...formData, [name]: value})\r\n    }\r\n\r\n    const handleSubmit = async (e) => {\r\n        e.preventDefault()\r\n        const regexEmail = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/i\r\n        if (!isShow) {\r\n            if (formData.email.length === 0) {\r\n                toast.error(\"Enter email\");\r\n            } else if (!regexEmail.test(formData.email)) {\r\n                return toast.error(\"This is not a valid email\");\r\n            } else if (regexEmail.test(formData.email)) {\r\n                return setIsShow(true)\r\n            }\r\n        } else if (isShow) {\r\n            if (formData.password.length < 8) {\r\n                return toast.error(\"Password must be less than 8 characters\");\r\n            } else {\r\n                console.log(\"send data\")\r\n                await sendData(\"/v1/auth/login\", formData)\r\n                setAccessToken(data.access_token)\r\n                setRefreshToken(data.refresh_token)\r\n                setIsShow(false)\r\n                setFormData({\r\n                    email: \"\",\r\n                    password: \"\",\r\n                })\r\n                toast.success(\"Success\")\r\n            }\r\n        }\r\n\r\n    }\r\n\r\n    return (\r\n        <>\r\n            <ToastContainer/>\r\n            <Form onSubmit={handleSubmit}>\r\n                <FieldEmail\r\n                    value={formData.email}\r\n                    onChange={handleChange}\r\n                    placeholder={\"Work email\"}\r\n                    className={isShow ? \"field-psw-show\" : \"field-psw-hide\"}\r\n                />\r\n\r\n                {isShow &&\r\n                    <>\r\n                        <FieldPassword\r\n                            name={\"password\"}\r\n                            value={formData.password}\r\n                            onChange={handleChange}\r\n                        />\r\n                        <LinkText\r\n                            href={'v1/auth/password-reset'}\r\n                            text={'Forgot your password?'}\r\n                            className={'forgot-psw'}/>\r\n                    </>\r\n                }\r\n                <FormButton type={'submit'} text={'Log in to Qencode'}/>\r\n            </Form>\r\n            <StyledText>\r\n                Is your company new to Qencode?&nbsp;\r\n                <LinkText href={'v1/auth/'} text={' Sign up'}/>\r\n            </StyledText>\r\n        </>\r\n    );\r\n};\r\n\r\nexport default FormLogin;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/forms/FormLogin.jsx b/src/components/forms/FormLogin.jsx
+--- a/src/components/forms/FormLogin.jsx	(revision bc4d1c9eb7baa466d156dd3f39b28247f18ab8a7)
++++ b/src/components/forms/FormLogin.jsx	(date 1710892340345)
+@@ -16,7 +16,7 @@
+         email: "",
+         password: "",
+     })
+-    const {data, sendData} = useApiPostRequest()
++    const {data, sendData, error} = useApiPostRequest()
+     const [isShow, setIsShow] = useState(false)
+     const handleChange = (e) => {
+         const {name, value} = e.target;
+@@ -38,15 +38,14 @@
+             if (formData.password.length < 8) {
+                 return toast.error("Password must be less than 8 characters");
+             } else {
+-                console.log("send data")
+-                await sendData("/v1/auth/login", formData)
++                // await sendData("/v1/auth/login", formData)
+                 setAccessToken(data.access_token)
+                 setRefreshToken(data.refresh_token)
+-                setIsShow(false)
+                 setFormData({
+                     email: "",
+                     password: "",
+                 })
++                setIsShow(false)
+                 toast.success("Success")
+             }
+         }
+@@ -61,8 +60,9 @@
+                     value={formData.email}
+                     onChange={handleChange}
+                     placeholder={"Work email"}
+-                    className={isShow ? "field-psw-show" : "field-psw-hide"}
++                    className={isShow ? "field-email" : "field-psw-hide"}
+                 />
++
+ 
+                 {isShow &&
+                     <>
+@@ -74,9 +74,14 @@
+                         <LinkText
+                             href={'v1/auth/password-reset'}
+                             text={'Forgot your password?'}
+-                            className={'forgot-psw'}/>
++                            className={'forgot-psw'}
++                        />
++
++
+                     </>
+                 }
++
++
+                 <FormButton type={'submit'} text={'Log in to Qencode'}/>
+             </Form>
+             <StyledText>
+@@ -84,7 +89,8 @@
+                 <LinkText href={'v1/auth/'} text={' Sign up'}/>
+             </StyledText>
+         </>
+-    );
++    )
++        ;
+ };
+ 
+ export default FormLogin;
+Index: src/hooks/apiRequests.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import instance from '../api/instance.js';\r\nimport {useEffect, useState} from \"react\";\r\n\r\nexport const useApiPostRequest = () => {\r\n    const [data, setData] = useState(null);\r\n    const [isLoading, setIsLoading] = useState(false);\r\n    const [error, setError] = useState(null);\r\n\r\n    const sendData = async (url, data) => {\r\n        setIsLoading(true);\r\n        try {\r\n            const {data: result} = await instance.post(url, data);\r\n            setData(result);\r\n        } catch (error) {\r\n            setError(error);\r\n        }\r\n        setIsLoading(false);\r\n    };\r\n\r\n    useEffect(() => {\r\n        if (data) {\r\n            sendData();\r\n        }\r\n    }, [data]);\r\n\r\n    return {data, isLoading, error, sendData};\r\n};\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/hooks/apiRequests.js b/src/hooks/apiRequests.js
+--- a/src/hooks/apiRequests.js	(revision bc4d1c9eb7baa466d156dd3f39b28247f18ab8a7)
++++ b/src/hooks/apiRequests.js	(date 1710892091092)
+@@ -4,7 +4,7 @@
+ export const useApiPostRequest = () => {
+     const [data, setData] = useState(null);
+     const [isLoading, setIsLoading] = useState(false);
+-    const [error, setError] = useState(null);
++    const [error, setError] = useState("");
+ 
+     const sendData = async (url, data) => {
+         setIsLoading(true);
+@@ -23,5 +23,6 @@
+         }
+     }, [data]);
+ 
++
+     return {data, isLoading, error, sendData};
+ };
+Index: src/components/fields/fields.styled.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import styled from 'styled-components';\r\nimport VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';\r\nimport VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';\r\nexport const StyledField = styled.input.attrs({\r\n  autoComplete: 'true',\r\n})`\r\n  width: 100%;\r\n  height: 48px;\r\n  padding: 0 12px;\r\n  border-radius: 6px;\r\n  border: 1.2px solid var(--color-border-prime);\r\n  font-family: BasisGrotesquePro-Regular, sans-serif;\r\n  font-size: 15px;\r\n  font-weight: 400;\r\n  line-height: 20px;\r\n  letter-spacing: 0px;\r\n\r\n  color: var(--color-input-text);\r\n\r\n  &.field-psw-show {\r\n    margin-bottom: 25px;\r\n  }\r\n  &.field-psw-hide {\r\n    margin-bottom: 30px;\r\n  }\r\n\r\n  &::placeholder {\r\n    color: var(--color-input-placholder);\r\n  }\r\n`;\r\n\r\n// Styles for password field wrapper\r\nexport const StyledFieldPasswordWrapper = styled.div`\r\n  position: relative;\r\n  height: 48px;\r\n  display: flex;\r\n  align-items: center;\r\n  //width: 100%;\r\n  margin-bottom: 15px;\r\n\r\n  &.password-set {\r\n    margin-bottom: 20px;\r\n  }\r\n`;\r\n\r\n// Styles for icon wrapper\r\nexport const StyledButton = styled.button`\r\n  position: absolute;\r\n  width: 20px;\r\n  height: 20px;\r\n  right: 16px;\r\n  background-color: transparent;\r\n`;\r\n\r\nexport const StyledIconOn = styled(VisibilityOutlinedIcon)`\r\n  color: var(--color-icon-password);\r\n  width: 20px;\r\n  height: 20px;\r\n`;\r\n\r\nexport const StyledIconOff = styled(VisibilityOffOutlinedIcon)`\r\n  color: var(--color-icon-password);\r\n  width: 20px;\r\n  height: 20px;\r\n`;\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/fields/fields.styled.js b/src/components/fields/fields.styled.js
+--- a/src/components/fields/fields.styled.js	(revision bc4d1c9eb7baa466d156dd3f39b28247f18ab8a7)
++++ b/src/components/fields/fields.styled.js	(date 1710888420577)
+@@ -4,29 +4,30 @@
+ export const StyledField = styled.input.attrs({
+   autoComplete: 'true',
+ })`
+-  width: 100%;
+-  height: 48px;
+-  padding: 0 12px;
+-  border-radius: 6px;
+-  border: 1.2px solid var(--color-border-prime);
+-  font-family: BasisGrotesquePro-Regular, sans-serif;
+-  font-size: 15px;
+-  font-weight: 400;
+-  line-height: 20px;
+-  letter-spacing: 0px;
++    width: 100%;
++    height: 48px;
++    padding: 0 12px;
++    border-radius: 6px;
++    border: 1.2px solid var(--color-border-prime);
++    font-family: BasisGrotesquePro-Regular, sans-serif;
++    font-size: 15px;
++    font-weight: 400;
++    line-height: 20px;
++    letter-spacing: 0px;
+ 
+-  color: var(--color-input-text);
++    color: var(--color-input-text);
+ 
+-  &.field-psw-show {
+-    margin-bottom: 25px;
+-  }
+-  &.field-psw-hide {
+-    margin-bottom: 30px;
+-  }
++    &.field-email {
++        margin-bottom: 25px;
++    }
++
++    &.field-psw-hide {
++        margin-bottom: 30px;
++    }
+ 
+-  &::placeholder {
+-    color: var(--color-input-placholder);
+-  }
++    &::placeholder {
++        color: var(--color-input-placholder);
++    }
+ `;
+ 
+ // Styles for password field wrapper
