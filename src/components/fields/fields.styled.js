@@ -13,8 +13,7 @@ export const StyledField = styled.input.attrs({
   font-size: 15px;
   font-weight: 400;
   line-height: 20px;
-  letter-spacing: 0px;
-
+  letter-spacing: 0;
   color: var(--color-input-text);
 
   &.field-email {
@@ -35,7 +34,6 @@ export const StyledFieldPasswordWrapper = styled.div`
   height: 48px;
   display: flex;
   align-items: center;
-  //width: 100%;
   margin-bottom: 15px;
 
   &.password-set {
