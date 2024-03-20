@@ -14,8 +14,8 @@ const LoginPage = () => {
         <>
             <TitleAuth text={'Log in to your account'}/>
             <ButtonWrapper>
-                <LinkAuth icon={iconGoogle} text={'Google'} href={`v1/auth/password-reset`}/>
-                <LinkAuth icon={iconGithub} text={'GitHub'} href={`v1/auth/password-set`}/>
+                <LinkAuth icon={iconGoogle} text={'Google'} href={`login`}/>
+                <LinkAuth icon={iconGithub} text={'GitHub'} href={`login`}/>
             </ButtonWrapper>
             <Separator/>
             <FormLogin/>

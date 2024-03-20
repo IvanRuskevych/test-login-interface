@@ -1,17 +1,14 @@
-import {Form} from './forms.styled.js';
-import FieldPassword from '../fields/FieldPassword.jsx';
-import FormButton from '../FormButton/FormButton.jsx';
-import LabelText from '../LabelText/LabelText.jsx';
 import {useState} from "react";
 import {toast, ToastContainer} from 'react-toastify';
 import {useApiPostRequest} from "../../hooks/apiRequests.js";
-
+import FieldPassword from '../fields/FieldPassword.jsx';
+import FormButton from '../FormButton/FormButton.jsx';
+import LabelText from '../LabelText/LabelText.jsx';
+import {API_PATH, INIT_STAT, MESSAGES} from "../../constants/constants.js";
+import {Form} from './forms.styled.js';
 
 const FormPasswordSet = () => {
-    const [formData, setFormData] = useState({
-        password: "",
-        confirmPassword: ""
-    })
+    const [formData, setFormData] = useState(INIT_STAT.PSW_SET)
     const {sendData} = useApiPostRequest()
 
     const handleChange = (e) => {
@@ -21,19 +18,16 @@ const FormPasswordSet = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (formData.password.length < 8) {
-            toast.error("Password must be less than 8 characters");
+            toast.error(MESSAGES.ERR_PSW);
         } else if (formData.password !== formData.confirmPassword) {
-            toast.error("Passwords do not match");
+            toast.error(MESSAGES.ERR_PSW_MATCH);
         } else {
             try {
-                await sendData("/v1/auth/password-set", formData);
-                setFormData({
-                    password: "",
-                    confirmPassword: ""
-                });
-                toast.success("Password reset successfully");
+                await sendData(API_PATH.PSW_SET, formData);
+                setFormData(INIT_STAT.PSW_SET);
+                toast.success(MESSAGES.SUCCESS_PSW_RESET);
             } catch (error) {
-                toast.error("Failed to password reset. Please try again later.");
+                toast.error(MESSAGES.ERR_PSW_SET);
             }
         }
     }
