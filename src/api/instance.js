@@ -17,7 +17,6 @@ instance.interceptors.response.use(response => response, async (error) => {
             return Promise.reject(error);
         }
     }
-    console.log("error interceptors 2", Promise.reject(error))
     return Promise.reject(error);
 })
 export default instance;
