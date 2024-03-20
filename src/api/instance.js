@@ -10,12 +10,10 @@ instance.interceptors.response.use(response => response, async (error) => {
         const refreshToken = getRefreshToken()
         try {
             const {data} = await instance.post("/v1/auth/refresh-token", {refreshToken})
-            console.log("data interceptors", data)
             setAccessToken(data.access_token)
             setRefreshToken(data.refresh_token)
             return instance(error.config)
         } catch (error) {
-            console.log("error interceptors 1", Promise.reject(error))
             return Promise.reject(error);
         }
     }
